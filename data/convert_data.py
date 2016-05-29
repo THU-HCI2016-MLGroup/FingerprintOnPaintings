@@ -2,6 +2,7 @@
 # process training info to lmdb or txt
 # V1.0 Li Mengdi
 # V1.1 Ma Yidong add train txt
+# V1.2 Ma Yidong add crop and resize to imgs and create lmdb
 # May. 2016 THU HCI
 import numpy as np
 import pandas as pd
@@ -70,14 +71,18 @@ for style, label in style_dict.items():
 style_label_info.close()
 artist_label_info.close()
 
-'''
-#create lmdb
-map_size=604857600
-env=lmdb.open('mylmdb',map_size=map_size)
+
+#create train lmdb
+map_size=904857600
+env=lmdb.open('fingerprint_train',map_size=map_size)
 with env.begin(write=True) as txn:
-    for i,image in enumerate(image_list):
-        image_path=IMAGE_DIR+'/'+image
-        im=np.array(Image.open(image_path))
+    for i, row in enumerate(train_sub_data.values):
+        img_path = TRAIN_IMAGE_DIR + '/' + row[0]
+        label = row[8]
+        img = Image.open(img_path)
+        width, height = img.size
+        targetsize = width if height > width else height
+        im=np.array(img.crop((0,0,targetsize,targetsize)).resize((256,256),Image.ANTIALIAS ))
         Dtype=im.dtype
         if len(im.shape) == 2:
                 print('here')
@@ -89,16 +94,12 @@ with env.begin(write=True) as txn:
                 print('here')
         if len(im.shape)!=3:
             continue
-        # im = im[:,:,::-1]
-        # im = Image.fromarray(im)
-        # im=np.array(im,Dtype)
-        # print image
         im = im.transpose((2,0,1))
-        label=int(labelDf[labelDf.filename==image].cat_style.values[0])
         datum=caffe.proto.caffe_pb2.Datum()
         datum.channels=im.shape[0]
         datum.height=im.shape[1]
         datum.width=im.shape[2]
+        print(str(i)+ ' ' + str(label))
         datum.data=im.tobytes()
         datum.label=label
         str_id = '{:08}'.format(i)
@@ -106,4 +107,43 @@ with env.begin(write=True) as txn:
         txn.put(str_id.encode('ascii'), datum.SerializeToString())
         print 'Temp'
 print 'Finish'
-'''
+
+#create test lmdb
+map_size=604857600
+env=lmdb.open('fingerprint_test',map_size=map_size)
+with env.begin(write=True) as txn:
+    j = 0
+    for i, row in enumerate(test_sub_data.values):
+        style = row[3]
+        if(style in sub_style_dict):
+            label = sub_style_dict[style]
+            img_path = TEST_IMAGE_DIR + '/' + row[0]
+            img = Image.open(img_path)
+            width, height = img.size
+            targetsize = width if height > width else height
+            im=np.array(img.crop((0,0,targetsize,targetsize)).resize((256,256),Image.ANTIALIAS ))
+            Dtype=im.dtype
+            if len(im.shape) == 2:
+                    print('here')
+                    (row, col) = im.shape
+                    im3 = np.zeros([row, col, 3], Dtype)
+                    for i in range(3):
+                        im3 [:, :, i] = im
+                    im = im3
+                    print('here')
+            if len(im.shape)!=3:
+                continue
+            im = im.transpose((2,0,1))
+            datum=caffe.proto.caffe_pb2.Datum()
+            datum.channels=im.shape[0]
+            datum.height=im.shape[1]
+            datum.width=im.shape[2]
+            print(str(j)+ ' ' + str(label))
+            datum.data=im.tobytes()
+            datum.label=label
+            str_id = '{:08}'.format(j)
+            # label=labelDf[labelDf.filename==image].artist
+            txn.put(str_id.encode('ascii'), datum.SerializeToString())
+            print 'Temp'
+            j = j+1
+print 'Finish'
