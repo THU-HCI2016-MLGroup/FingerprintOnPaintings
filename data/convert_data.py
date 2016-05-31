@@ -16,8 +16,9 @@ import caffe
 #prepross data
 NBYTES=2000000
 #change to your data path
-TRAIN_IMAGE_DIR='D:/Repo/FingerprintOnPaintings/FingerprintOnPaintings_StyleClassifier/data/train'
-TEST_IMAGE_DIR='D:/Repo/FingerprintOnPaintings/FingerprintOnPaintings_StyleClassifier/data/test'
+TRAIN_IMAGE_DIR='D:\\Repo\\FingerprintOnPaintings\\FingerprintOnPaintings_StyleClassifier\\data\\train\\'
+TEST_IMAGE_DIR='D:\\Repo\\FingerprintOnPaintings\\FingerprintOnPaintings_StyleClassifier\\data\\test\\'
+TARGET_IMAGE_DIR='D:\\Repo\\FingerprintOnPaintings\\FingerprintOnPaintings_StyleClassifier\\data\\images\\'
 labelDf=pd.read_csv('train_info.csv')
 unique_artist=labelDf.artist.unique()
 unique_style=labelDf['style'].unique()
@@ -31,36 +32,58 @@ labelDf['cat_artist']=labelDf.artist.apply(lambda x:artist_dict[x])
 labelDf['cat_style']=labelDf['style'].apply(lambda x:style_dict[x])
 train_image_list=os.listdir(TRAIN_IMAGE_DIR)
 test_image_list=os.listdir(TEST_IMAGE_DIR)
+train_saved_list = []
+test_saved_list = []
 
+for imgname in train_image_list:
+    img_path = TRAIN_IMAGE_DIR + '/' + imgname
+    img = Image.open(img_path)
+    try:
+        img.load()
+        train_saved_list.append(imgname)
+    except IOError:
+        pass # You can always log it to logger
+    width, height = img.size
+    targetsize = width if height > width else height
+    img=img.crop((0,0,targetsize,targetsize)).resize((256,256),Image.ANTIALIAS )
+    img.convert('RGB').save(TARGET_IMAGE_DIR + '/' + imgname)
+    
+for imgname in test_image_list:
+    img_path = TEST_IMAGE_DIR + '/' + imgname
+    img = Image.open(img_path)
+    try:
+        img.load()
+        test_saved_list.append(imgname)
+    except IOError:
+        print img_path
+        pass # You can always log it to logger
+    width, height = img.size
+    targetsize = width if height > width else height
+    img=img.crop((0,0,targetsize,targetsize)).resize((256,256),Image.ANTIALIAS )
+    img.convert('RGB').save(TARGET_IMAGE_DIR + '/' + imgname)
+    
 #create train txt
 train_info = open("train.txt", "w")
 styl_count_dict = {}
-#find current dataset as subset of labelDf
-train_sub_data = labelDf[labelDf.filename.isin(train_image_list)]
-sub_unique_style=train_sub_data['style'].unique()
-sub_style_dict={}
-for i,style in enumerate(sub_unique_style):
-    sub_style_dict[style]=i
-train_sub_data['sub_uni_style']=train_sub_data['style'].apply(lambda x:sub_style_dict[x])
+train_sub_data = labelDf[labelDf.filename.isin(train_saved_list)]
 for row in train_sub_data.values :
-    train_info.write(TRAIN_IMAGE_DIR + '/' + row[0] + ' ' + str(row[8]) + '\n')
+    train_info.write(TARGET_IMAGE_DIR + '/' + row[0] + ' ' + str(row[7]) + '\n')
 train_info.close()
 
 #create test txt
 test_info = open("test.txt", "w")
-test_sub_data = labelDf[labelDf.filename.isin(test_image_list)]
+test_sub_data = labelDf[labelDf.filename.isin(test_saved_list)]
 for row in test_sub_data.values:
-    style = row[3]
-    if(style in sub_style_dict):
-        test_info.write(TEST_IMAGE_DIR + '/' + row[0] + ' ' + str(sub_style_dict[style]) + '\n')
+    test_info.write(TARGET_IMAGE_DIR + '/' + row[0] + ' ' + str(row[7]) + '\n')
 test_info.close()
-
+    
+'''
 #style label for current sub data set
 train_style_label_info = open("train_style_labels.txt", "w")
 for style, label in sub_style_dict.items():
     train_style_label_info.write(str(label) + ' ' + str(style)+ '\n')  
 train_style_label_info.close()
-
+'''
 #style and artist label for whole data set
 style_label_info = open("style_labels.txt", "w")
 artist_label_info = open("artist_labels.txt", "w")
