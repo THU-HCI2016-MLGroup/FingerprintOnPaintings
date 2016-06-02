@@ -1,0 +1,1 @@
+C:/caffe-windows/Build/x64/Release/caffe train -solver solver_googlenet.prototxt -weights bvlc_googlenet.caffemodel -gpu 0
