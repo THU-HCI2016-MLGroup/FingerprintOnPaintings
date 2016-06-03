@@ -1,136 +1,136 @@
-15 nan
-103 Lettrism
-96 Poster Art Realism
-121 Rayonism
-4 Northern Renaissance
-31 Naïve Art (Primitivism)
-122 Perceptism 
-118 Timurid Period
-115 Mechanistic Cubism
-128 Joseon Dynasty
-41 Tenebrism
-50 Byzantine
-19 Art Nouveau (Modern)
-97 Post-Painterly Abstraction
-14 Symbolism
-10 Pointillism
-49 Regionalism
-99 Ottoman Period
-76 Purism
-117 Indian Space painting
-88 Nouveau Réalisme
-35 Constructivism
-8 Baroque
-6 Realism
-17 Classicism
-56 Romanesque
-104 Nas-Taliq
-61 Gongbi
-90 Sōsaku hanga
-38 Neoplasticism
-3 Surrealism
-66 Tubism
-93 Hyper-Realism
-26 Orphism
-114 Cartographic Art
-63 Shin-hanga
-7 Biedermeier
-55 Concretism
-126 Ilkhanid
-74 Conceptual Art
-45 Art Brut
-20 Mannerism (Late Renaissance)
-132 Neo-Byzantine
-30 Academicism
-54 Cloisonnism
-91 Neo-Dada
-75 Cubo-Futurism
-127 Mail Art
-25 Ink and wash painting
-80 Contemporary Realism
-27 Neo-Rococo
-130 Miserablism
-43 Art Informel
-23 Neoclassicism
-48 Lyrical Abstraction
-60 American Realism
-42 Muralism
-102 New European Painting
-100 Existential Art
-84 Precisionism
-81 Minimalism
-53 Abstract Art
-16 Early Renaissance
-44 Analytical Realism
-28 Orientalism
-108 Primitivism
-79 Action painting
-116 Photorealism
-135 Transautomatism
-9 Cubism
-51 Suprematism
-47 Safavid Period
-12 High Renaissance
-40 Proto Renaissance
-125 Light and Space
-98 Hard Edge Painting
-86 Divisionism
-119 Synchromism
-21 Expressionism
-101 Feminist Art
-77 Kitsch
-124 Native Art
-65 Nanga (Bunjinga)
-36 Dada
-52 Futurism
-64 Spatialism
-29 Magic Realism
-107 Post-Minimalism
-18 Post-Impressionism
-85 Social Realism
-39 Abstract Expressionism
-5 Romanticism
-83 Costumbrismo
-78 Outsider art
-57 Intimism
-68 Metaphysical art
-129 Neo-Figurative Art
-46 Pop Art
-72 Art Deco
-133 New Casualism
-109 Zen
-131 Street art
-69 International Gothic
-0 Color Field Painting
-73 New Realism
-1 Yamato-e
-11 Rococo
-89 Luminism
-95 Cubo-Expressionism
-34 Neo-Romanticism
-62 Socialist Realism
-2 Ukiyo-e
-113 Gothic
-59 Synthetic Cubism
-32 Tonalism
-106 Figurative Expressionism
-13 Fauvism
-24 Impressionism
-94 Kinetic Art
-82 Spectralism
-123 Modernismo
-110 Nihonga
-92 Mosan art
-22 Japonism
-58 Tachisme
-134 Environmental (Land) Art
-70 Naturalism
-111 Fantastic Realism
-112 Analytical Cubism
-33 Op Art
-37 Neo-Expressionism
-71 Synthetism
-105 Automatic Painting
-120 Neo-Concretism
-87 Neo-baroque
-67 Verism
+15	nan
+103	Lettrism
+96	Poster Art Realism
+121	Rayonism
+4	Northern Renaissance
+31	Naïve Art (Primitivism)
+122	Perceptism 
+118	Timurid Period
+115	Mechanistic Cubism
+128	Joseon Dynasty
+41	Tenebrism
+50	Byzantine
+19	Art Nouveau (Modern)
+97	Post-Painterly Abstraction
+14	Symbolism
+10	Pointillism
+49	Regionalism
+99	Ottoman Period
+76	Purism
+117	Indian Space painting
+88	Nouveau Réalisme
+35	Constructivism
+8	Baroque
+6	Realism
+17	Classicism
+56	Romanesque
+104	Nas-Taliq
+61	Gongbi
+90	Sōsaku hanga
+38	Neoplasticism
+3	Surrealism
+66	Tubism
+93	Hyper-Realism
+26	Orphism
+114	Cartographic Art
+63	Shin-hanga
+7	Biedermeier
+55	Concretism
+126	Ilkhanid
+74	Conceptual Art
+45	Art Brut
+20	Mannerism (Late Renaissance)
+132	Neo-Byzantine
+30	Academicism
+54	Cloisonnism
+91	Neo-Dada
+75	Cubo-Futurism
+127	Mail Art
+25	Ink and wash painting
+80	Contemporary Realism
+27	Neo-Rococo
+130	Miserablism
+43	Art Informel
+23	Neoclassicism
+48	Lyrical Abstraction
+60	American Realism
+42	Muralism
+102	New European Painting
+100	Existential Art
+84	Precisionism
+81	Minimalism
+53	Abstract Art
+16	Early Renaissance
+44	Analytical Realism
+28	Orientalism
+108	Primitivism
+79	Action painting
+116	Photorealism
+135	Transautomatism
+9	Cubism
+51	Suprematism
+47	Safavid Period
+12	High Renaissance
+40	Proto Renaissance
+125	Light and Space
+98	Hard Edge Painting
+86	Divisionism
+119	Synchromism
+21	Expressionism
+101	Feminist Art
+77	Kitsch
+124	Native Art
+65	Nanga (Bunjinga)
+36	Dada
+52	Futurism
+64	Spatialism
+29	Magic Realism
+107	Post-Minimalism
+18	Post-Impressionism
+85	Social Realism
+39	Abstract Expressionism
+5	Romanticism
+83	Costumbrismo
+78	Outsider art
+57	Intimism
+68	Metaphysical art
+129	Neo-Figurative Art
+46	Pop Art
+72	Art Deco
+133	New Casualism
+109	Zen
+131	Street art
+69	International Gothic
+0	Color Field Painting
+73	New Realism
+1	Yamato-e
+11	Rococo
+89	Luminism
+95	Cubo-Expressionism
+34	Neo-Romanticism
+62	Socialist Realism
+2	Ukiyo-e
+113	Gothic
+59	Synthetic Cubism
+32	Tonalism
+106	Figurative Expressionism
+13	Fauvism
+24	Impressionism
+94	Kinetic Art
+82	Spectralism
+123	Modernismo
+110	Nihonga
+92	Mosan art
+22	Japonism
+58	Tachisme
+134	Environmental (Land) Art
+70	Naturalism
+111	Fantastic Realism
+112	Analytical Cubism
+33	Op Art
+37	Neo-Expressionism
+71	Synthetism
+105	Automatic Painting
+120	Neo-Concretism
+87	Neo-baroque
+67	Verism
