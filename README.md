@@ -23,7 +23,7 @@ Please make sure [caffe](http://caffe.berkeleyvision.org/installation.html) and 
   Probably you find `train_val.py`, this script is working in progress, please make it work :)
   
 ###Prediction
-Run Fingerprint on Paintings.ipynb to
+Run `Fingerprint on Paintings.ipynb` to
 * show the structure of the trained net
 * show the learning curve to give a clue to the training process
 * classify a test image
