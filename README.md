@@ -1,6 +1,7 @@
-# FingerprintOnPaintings_StyleClassifier
-
-Finetune caffenet to recognize style of a painting
+# FingerprintOnPaintings
+Recognize Painting's Artist and Style using Convolution Neural Network
+###Prerequisites
+Please make sure [caffe](http://caffe.berkeleyvision.org/installation.html) and caffe python wrapper are ready to run the scripts.
 
 ###Setup
 #####1. Prepare Data  
@@ -20,3 +21,10 @@ Finetune caffenet to recognize style of a painting
   ```
 #####4. Python Version?  
   Probably you find `train_val.py`, this script is working in progress, please make it work :)
+  
+###Prediction
+Run Fingerprint on Paintings.ipynb to
+* show the structure of the trained net
+* show the learning curve to give a clue to the training process
+* classify a test image
+* visualize the net
