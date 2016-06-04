@@ -1,0 +1,1 @@
+C:/caffe-windows/Build/x64/Release/caffe train -solver models/fingerprint_googlenet_style/solver_googlenet_style.prototxt -weights models/bvlc_googlenet.caffemodel -gpu 0 2>&1 tee log/train-googlenet-artist.log

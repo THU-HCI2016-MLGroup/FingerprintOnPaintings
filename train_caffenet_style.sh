@@ -1,0 +1,1 @@
+C:/caffe-windows/Build/x64/Release/caffe train -solver models/fingerprint_caffenet_style/solver_caffenet_style.prototxt -weights models/bvlc_reference_caffenet.caffemodel -gpu 0 2>&1 tee log/train-caffenet-style.log

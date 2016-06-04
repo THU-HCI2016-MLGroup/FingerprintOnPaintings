@@ -3,6 +3,7 @@
 # V1.0 Li Mengdi
 # V1.1 Ma Yidong add train txt
 # V1.2 Ma Yidong add crop and resize to imgs and create lmdb
+# V1.3 Ma Yidong. Add style/artist option
 # May. 2016 THU HCI
 import numpy as np
 import pandas as pd
@@ -13,13 +14,17 @@ import sys
 import os
 import caffe
 
+#change this flag to 'artist' to get train info for artist.
+label_flag='artist'
+resize_flag=False
+
 #prepross data
 NBYTES=2000000
-#change to your data path
-TRAIN_IMAGE_DIR='C:/Users/walter/Desktop/FingerprintOnPaintings_StyleClassifier-master/data/train/'
-TEST_IMAGE_DIR='C:/Users/walter/Desktop/FingerprintOnPaintings_StyleClassifier-master/data/test/'
-TARGET_IMAGE_DIR='C:/Users/walter/Desktop/FingerprintOnPaintings_StyleClassifier-master/data/image/'
-labelDf=pd.read_csv('train_info.csv')
+#change to your data paths
+TRAIN_IMAGE_DIR='/data/train/'
+TEST_IMAGE_DIR='/data/test/'
+TARGET_IMAGE_DIR='/data/image/'
+labelDf=pd.read_csv('./data/train_info.csv')
 unique_artist=labelDf.artist.unique()
 unique_style=labelDf['style'].unique()
 artist_dict={}
@@ -35,46 +40,49 @@ test_image_list=os.listdir(TEST_IMAGE_DIR)
 train_saved_list = []
 test_saved_list = []
 
-for imgname in train_image_list:
-    img_path = TRAIN_IMAGE_DIR + '/' + imgname
-    img = Image.open(img_path)
-    try:
-        img.load()
-        train_saved_list.append(imgname)
-    except IOError:
-        pass # You can always log it to logger
-    width, height = img.size
-    targetsize = width if height > width else height
-    img=img.crop((0,0,targetsize,targetsize)).resize((256,256),Image.ANTIALIAS )
-    img.convert('RGB').save(TARGET_IMAGE_DIR + '/' + imgname)
-    
-for imgname in test_image_list:
-    img_path = TEST_IMAGE_DIR + '/' + imgname
-    img = Image.open(img_path)
-    try:
-        img.load()
-        test_saved_list.append(imgname)
-    except IOError:
-        print img_path
-        pass # You can always log it to logger
-    width, height = img.size
-    targetsize = width if height > width else height
-    img=img.crop((0,0,targetsize,targetsize)).resize((256,256),Image.ANTIALIAS )
-    img.convert('RGB').save(TARGET_IMAGE_DIR + '/' + imgname)
+if(resize_flag):
+    for imgname in train_image_list:
+        img_path = TRAIN_IMAGE_DIR + '/' + imgname
+        img = Image.open(img_path)
+        try:
+            img.load()
+            train_saved_list.append(imgname)
+        except IOError:
+            pass # You can always log it to logger
+        width, height = img.size
+        targetsize = width if height > width else height
+        img=img.crop((0,0,targetsize,targetsize)).resize((256,256),Image.ANTIALIAS )
+        img.convert('RGB').save(TARGET_IMAGE_DIR + '/' + imgname)
+        
+    for imgname in test_image_list:
+        img_path = TEST_IMAGE_DIR + '/' + imgname
+        img = Image.open(img_path)
+        try:
+            img.load()
+            test_saved_list.append(imgname)
+        except IOError:
+            print img_path
+            pass # You can always log it to logger
+        width, height = img.size
+        targetsize = width if height > width else height
+        img=img.crop((0,0,targetsize,targetsize)).resize((256,256),Image.ANTIALIAS )
+        img.convert('RGB').save(TARGET_IMAGE_DIR + '/' + imgname)
     
 #create train txt
-train_info = open("train.txt", "w")
+train_info = open("./data/train_" + label_flag + ".txt", "w")
 styl_count_dict = {}
-train_sub_data = labelDf[labelDf.filename.isin(train_saved_list)]
+train_sub_data = labelDf[labelDf.filename.isin(train_saved_list if resize_flag else train_image_list)]
+PATH = TARGET_IMAGE_DIR if resize_flag else TRAIN_IMAGE_DIR
 for row in train_sub_data.values :
-    train_info.write(TARGET_IMAGE_DIR + '/' + row[0] + ' ' + str(row[7]) + '\n')
+    train_info.write(os.path.abspath('.') + PATH + '/' + row[0] + ' ' + str(row[7] if label_flag == 'style' else row[6]) + '\n')
 train_info.close()
 
 #create test txt
-test_info = open("test.txt", "w")
-test_sub_data = labelDf[labelDf.filename.isin(test_saved_list)]
+test_info = open("./data/test_" + label_flag + ".txt", "w")
+test_sub_data = labelDf[labelDf.filename.isin(test_saved_list if resize_flag else test_image_list)]
+PATH = TARGET_IMAGE_DIR if resize_flag else TRAIN_IMAGE_DIR
 for row in test_sub_data.values:
-    test_info.write(TARGET_IMAGE_DIR + '/' + row[0] + ' ' + str(row[7]) + '\n')
+    test_info.write(os.path.abspath('.') + PATH + '/' + row[0] + ' ' + str(row[7] if label_flag == 'style' else row[6]) + '\n')
 test_info.close()
     
 '''
@@ -85,8 +93,8 @@ for style, label in sub_style_dict.items():
 train_style_label_info.close()
 '''
 #style and artist label for whole data set
-style_label_info = open("style_labels.txt", "w")
-artist_label_info = open("artist_labels.txt", "w")
+style_label_info = open("./data/style_labels.txt", "w")
+artist_label_info = open("./data/artist_labels.txt", "w")
 for artist, label in artist_dict.items():
     artist_label_info.write(str(label) + '\t' + artist+ '\n')
 for style, label in style_dict.items():

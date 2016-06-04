@@ -1,1 +1,0 @@
-C:/caffe-windows/Build/x64/Release/caffe train -solver solver.prototxt -weights bvlc_reference_caffenet.caffemodel -gpu 0

@@ -1,1 +1,0 @@
-C:/DeepLearningLib/caffe-windows-master/Build/x64/Release/caffe train -solver solver.prototxt

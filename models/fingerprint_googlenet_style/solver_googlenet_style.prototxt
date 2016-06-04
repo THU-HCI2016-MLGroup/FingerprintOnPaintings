@@ -1,0 +1,16 @@
+net: "models/fingerprint_googlenet_style/train_val_googlenet_style.prototxt"
+test_iter: 1000
+test_interval: 4000
+test_initialization: false
+display: 40
+average_loss: 40
+base_lr: 0.001
+lr_policy: "step"
+stepsize: 20000
+gamma: 0.98
+max_iter: 100000
+momentum: 0.9
+weight_decay: 0.0001
+snapshot: 20000
+snapshot_prefix: "models/fingerprint_googlenet_style/fingerprint_googlenet_style"
+solver_mode: GPU
