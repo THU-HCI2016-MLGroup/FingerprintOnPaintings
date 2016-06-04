@@ -10,6 +10,7 @@ Presentation of Fingerprint on Paintings
 #import numpy for numerical routines, and matplotlib for plotting
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.pyplot as pyplot
 # display plots in this notebook
 # %matplotlib inline
 import caffe
@@ -26,6 +27,8 @@ WEIGHTS_FILE = PROJ_ROOT + 'model/fingerprint_style_caffenet.caffemodel'
 TEST_FILE = PROJ_ROOT + 'data/test.txt'
 LABELS_FILE = PROJ_ROOT + 'data/style_labels.txt'
 MEAN_FILE = PROJ_ROOT + 'ilsvrc_2012_mean.npy'
+LOG_PREFIX = PROJ_ROOT + 'log/train-20160603-caffenet.log'
+NET_IMG_FILE = PROJ_ROOT + 'images/fingerprint_caffenet_style.png'
 
 ## load a trained caffemodel
 #caffe.set_mode_gpu()
@@ -37,7 +40,8 @@ net = caffe.Net(MODEL_FILE,      # defines the structure of the model
 
 ## Net structure
 #Net image
-#TODO yingzhi
+image = caffe.io.load_image(NET_IMG_FILE)
+plt.imshow(image)
 
 #layer parameters
 #Layers' activation shapes: each layer's neuron shapes(num of neurons = multiplying elements of the vector))
@@ -49,10 +53,66 @@ for layer_name, blob in net.blobs.iteritems():
 for layer_name, param in net.params.iteritems():
     print layer_name + '\t' + str(param[0].data.shape), str(param[1].data.shape)   #[0] for weights and [1] for biases
 
-## learning curve
-#TODO mengdi
-#refer to tools/plot_traing_log.py.example
-#python ./tools/parse_log.py log_file out_dir can parse train and test loss and acc into files
+## loss and accuracy
+#first python ./tools/parse_log.py log_file out_dir can parse train and test loss and acc into files
+#Load parsed data
+f1 = open(LOG_PREFIX+'.train')
+f2 = open(LOG_PREFIX+'.test')
+header1 = f1.readline().rstrip().split(',')
+header2 = f2.readline().rstrip().split(',')
+x1 = []
+x2 = []
+y1 = []
+y2 = []
+y3 = []
+y4 = []
+for s in f1:
+    if s != [''] and s != '\n':
+        l = s.rstrip('\n\r').split(',')
+        if float(l[0])%1000 != 0:
+            continue
+        x1.append(l[0])
+        y1.append(l[3])
+for s in f2: 
+    if s != [''] and s != '\n':
+        l = s.rstrip('\n\r').split(',')
+        x2.append(l[0])
+        y2.append(l[3])      
+        y3.append(l[4])
+        y4.append(l[5])
+#output accuracy
+print 'Initial test set accuracy with pretrained net = ' + y2[0]
+print 'Initial test set accuracy/Top-5 with pretrained net = ' + y3[0]
+print 'Final test set accuracy = ' + y2[-1]
+print 'Fianl test set accuracy/Top-5 = ' + y3[-1]
+#moving average of training
+y1_copy = y1[:]
+y1 = y1[:3]
+ma3 = y1_copy[0]
+ma2 = y1_copy[1]
+ma1 = y1_copy[2]
+for y in y1_copy[3:]:
+    ma4 = ma3
+    ma3 = ma2
+    ma2 = ma1   
+    ma1 = y
+    y1.append(str((float(ma4)+float(ma3)+float(ma2))/3))      
+#Plot learning curve
+pyplot.plot(x1, y1,'r', label = 'train '+header1[3])
+pyplot.plot(x2, y4,'b', label = 'test '+header2[5])
+pyplot.legend(loc = 'best')
+pyplot.title('Learning curve')
+pyplot.xlabel('iteration')
+pyplot.ylabel('loss')
+plt.show()
+#Plot test accuracy
+pyplot.plot(x2, y2, 'g', label = 'test '+header2[3])
+pyplot.plot(x2, y3, 'b', label ='test '+header2[4])
+pyplot.legend(loc = 'best')
+pyplot.title('Test accuracy')
+pyplot.xlabel('iteration')
+pyplot.ylabel('accuracy')
+plt.show()
 
 ## Cassificaiton
 #Load testset(image links and label number)
