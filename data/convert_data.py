@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
-# process training info to lmdb or txt
-# V1.0 Li Mengdi
-# V1.1 Ma Yidong add train txt
-# V1.2 Ma Yidong add crop and resize to imgs and create lmdb
-# V1.3 Ma Yidong. Add style/artist option
-# May. 2016 THU HCI
+'''
+Process training info to lmdb or txt
+For final project of THU HCI 2016
+
+Created on May. 2016 
+
+@author     maajor
+@author     Li Mengdi
+@version    1.3         Add style/artist option
+'''
 import numpy as np
 import pandas as pd
 import lmdb
