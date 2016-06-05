@@ -4,6 +4,8 @@ Finetune Caffenet and Googlenet to do the job.
 ###Prerequisites
 Please make sure [caffe](http://caffe.berkeleyvision.org/installation.html) and caffe python wrapper are ready to run the scripts.
 
+###Data
+Images used in this project mainly comes from [WikiArt](http://www.wikiart.org/). You can also download [the dataset in .csv format](https://www.kaggle.com/c/painter-by-numbers/data) prepared by Small Yellow Duck (Kiri Nichol) on Kaggle 
 ###Train
 #####1. Prepare Data  
   a. Copy train images into `data/train` folder and test images into `data/test` folder.   
