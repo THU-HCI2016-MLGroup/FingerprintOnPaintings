@@ -10,7 +10,6 @@ Presentation of Fingerprint on Paintings
 #import numpy for numerical routines, and matplotlib for plotting
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.pyplot as pyplot
 # display plots in this notebook
 # %matplotlib inline
 import caffe
@@ -22,11 +21,11 @@ plt.rcParams['image.cmap'] = 'gray'  # use grayscale output rather than a (poten
 
 #config PATH
 PROJ_ROOT = './'     #This is the the root of Fingerprint on Paintings Project
-MODEL_FILE = PROJ_ROOT + 'deploy.prototxt'
-WEIGHTS_FILE = PROJ_ROOT + 'model/fingerprint_style_caffenet.caffemodel'
-TEST_FILE = PROJ_ROOT + 'data/test.txt'
+MODEL_FILE = PROJ_ROOT + 'models/fingerprint_caffenet_style/deploy.prototxt'
+WEIGHTS_FILE = PROJ_ROOT + 'models/fingerprint_style_caffenet.caffemodel'
+TEST_FILE = PROJ_ROOT + 'data/test_style.txt'
 LABELS_FILE = PROJ_ROOT + 'data/style_labels.txt'
-MEAN_FILE = PROJ_ROOT + 'ilsvrc_2012_mean.npy'
+MEAN_FILE = PROJ_ROOT + 'models/ilsvrc_2012_mean.npy'
 LOG_PREFIX = PROJ_ROOT + 'log/train-20160603-caffenet.log'
 NET_IMG_FILE = PROJ_ROOT + 'images/fingerprint_caffenet_style.png'
 
@@ -98,20 +97,22 @@ for y in y1_copy[3:]:
     ma1 = y
     y1.append(str((float(ma4)+float(ma3)+float(ma2))/3))      
 #Plot learning curve
-pyplot.plot(x1, y1,'r', label = 'train '+header1[3])
-pyplot.plot(x2, y4,'b', label = 'test '+header2[5])
-pyplot.legend(loc = 'best')
-pyplot.title('Learning curve')
-pyplot.xlabel('iteration')
-pyplot.ylabel('loss')
+plt.figure(figsize = (10,6))
+plt.plot(x1, y1,'r', label = 'train '+header1[3])
+plt.plot(x2, y4,'b', label = 'test '+header2[5])
+plt.legend(loc = 'best')
+plt.title('Learning curve')
+plt.xlabel('iteration')
+plt.ylabel('loss')
 plt.show()
 #Plot test accuracy
-pyplot.plot(x2, y2, 'g', label = 'test '+header2[3])
-pyplot.plot(x2, y3, 'b', label ='test '+header2[4])
-pyplot.legend(loc = 'best')
-pyplot.title('Test accuracy')
-pyplot.xlabel('iteration')
-pyplot.ylabel('accuracy')
+plt.figure(figsize = (10,6))
+plt.plot(x2, y2, 'g', label = 'test '+header2[3])
+plt.plot(x2, y3, 'b', label ='test '+header2[4])
+plt.legend(loc = 'best')
+plt.title('Test accuracy')
+plt.xlabel('iteration')
+plt.ylabel('accuracy')
 plt.show()
 
 ## Cassificaiton
