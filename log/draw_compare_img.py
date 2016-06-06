@@ -10,10 +10,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 %matplotlib inline
 
-#select two log to compare
+#select two log to compare. first finetuned and second non-finetuned
 LOGS = [
-        'train_20160604_caffenet_artist.log',
-        'train_20160605_caffenet_artist_nonfinetune.log'
+        'train-20160603-caffenet.log',
+        'train_20160606_caffenet_style_nonfinetune.log'
         ]
 
 iter_num = [[],[]]
